@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elsad's Bright & Smart Calc</title>
+    <title>Elsad's Light & Smart Calc</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            /* Daha işıqlı və enerjili arxa plan */
-            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            /* Çox yumşaq və göz yormayan açıq gradient */
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -23,55 +23,55 @@
         }
 
         .calculator {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid white;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid #ffffff;
             padding: 30px;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            width: 90%;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            width: 95%;
             max-width: 380px;
-            position: relative;
+            transition: transform 0.3s ease;
         }
 
         #display {
             width: 100%;
-            height: 70px;
-            background: white;
-            border: 2px solid #3a7bd5;
+            height: 80px;
+            background: #ffffff;
+            border: 1px solid #e1e8ed;
             border-radius: 15px;
-            color: #333;
+            color: #2c3e50;
             text-align: right;
-            padding: 15px;
-            font-size: 32px;
-            margin-bottom: 20px;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+            padding: 20px;
+            font-size: 34px;
+            margin-bottom: 25px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
             outline: none;
         }
 
         .buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            gap: 15px;
         }
 
         button {
             height: 65px;
             border-radius: 15px;
             border: none;
-            background: white;
-            color: #333;
+            background: #ffffff;
+            color: #444;
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
         }
 
         button:hover {
-            background: #f0f0f0;
+            background: #f8f9fa;
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
         }
 
         button:active {
@@ -79,34 +79,46 @@
         }
 
         .operator {
-            background: #f8f9fa;
-            color: #3a7bd5;
+            background: #f1f3f5;
+            color: #3498db;
+            font-weight: bold;
         }
 
         .equal {
-            background: linear-gradient(45deg, #3a7bd5, #00d2ff);
+            background: #3498db;
             color: white;
             grid-column: span 2;
         }
 
+        .equal:hover {
+            background: #2980b9;
+            color: white;
+        }
+
         .clear {
-            background: #ffeded;
-            color: #ff4757;
+            background: #fff5f5;
+            color: #ff6b6b;
             grid-column: span 2;
         }
 
-        .footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 12px;
-            color: #777;
-            letter-spacing: 1px;
+        .clear:hover {
+            background: #ffe3e3;
         }
 
-        /* Klaviatura aktiv olanda düymə parıltısı üçün klass */
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 12px;
+            color: #95a5a6;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Klaviaturada basılan düymənin vizual effekti */
         .key-active {
-            background: #3a7bd5 !important;
+            background: #3498db !important;
             color: white !important;
+            transform: scale(0.95);
         }
     </style>
 </head>
@@ -115,14 +127,14 @@
     <div class="calculator">
         <input type="text" id="display" disabled placeholder="0">
         <div class="buttons">
-            <button class="clear" id="key-Escape" onclick="clearDisplay()">CLEAR (Esc)</button>
+            <button class="clear" id="key-Escape" onclick="clearDisplay()">CLEAR</button>
             <button class="operator" id="key-/" onclick="appendToDisplay('/')">÷</button>
             <button class="operator" id="key-*" onclick="appendToDisplay('*')">×</button>
             
             <button id="key-7" onclick="appendToDisplay('7')">7</button>
             <button id="key-8" onclick="appendToDisplay('8')">8</button>
             <button id="key-9" onclick="appendToDisplay('9')">9</button>
-            <button class="operator" id="key--" onclick="appendToDisplay('-')">-</button>
+            <button class="operator" id="key--" onclick="appendToDisplay('-')">−</button>
             
             <button id="key-4" onclick="appendToDisplay('4')">4</button>
             <button id="key-5" onclick="appendToDisplay('5')">5</button>
@@ -136,16 +148,16 @@
             
             <button id="key-0" onclick="appendToDisplay('0')">0</button>
             <button id="key-." onclick="appendToDisplay('.')">.</button>
-            <button class="equal" id="key-Enter" onclick="calculate()">TOTAL (Enter)</button>
+            <button class="equal" id="key-equal" onclick="calculate()">TOTAL</button>
         </div>
-        <div class="footer">SMART CALCULATOR BY ELSAD</div>
+        <div class="footer">Smart Calculator by Elsad</div>
     </div>
 
     <script>
         const display = document.getElementById('display');
 
         function appendToDisplay(input) {
-            if (display.value === "Error") display.value = "";
+            if (display.value === "Xəta") display.value = "";
             display.value += input;
         }
 
@@ -158,40 +170,43 @@
                 let result = eval(display.value);
                 display.value = Number.isInteger(result) ? result : result.toFixed(2);
             } catch {
-                display.value = "Error";
+                display.value = "Xəta";
             }
         }
 
-        // KLAVİATURA DƏSTƏYİ
+        // KLAVİATURA İDARƏETMƏSİ
         document.addEventListener('keydown', (event) => {
             const key = event.key;
             
-            // Rəqəmlər və operatorlar
+            // Rəqəmlər və riyazi işarələr
             if (/[0-9\/\*\-\.\+]/.test(key)) {
                 appendToDisplay(key);
-                animateButton(key);
+                highlightButton(key);
             } 
-            // Enter düyməsi
+            // Enter düyməsi (Hesablama)
             else if (key === 'Enter') {
+                event.preventDefault(); // Səhifənin yenilənməsinin qarşısını alır
                 calculate();
-                animateButton('Enter');
+                highlightButton('Enter');
+                highlightButton('equal');
             } 
-            // Escape və ya Backspace (təmizləmək üçün)
-            else if (key === 'Escape' || key === 'Delete') {
+            // Escape (Təmizləmə)
+            else if (key === 'Escape') {
                 clearDisplay();
-                animateButton('Escape');
+                highlightButton('Escape');
             }
+            // Backspace (Sonuncunu sil)
             else if (key === 'Backspace') {
                 display.value = display.value.slice(0, -1);
             }
         });
 
-        // Düyməyə basanda vizual effekt
-        function animateButton(key) {
+        // Düyməyə basıldıqda animasiya göstərir
+        function highlightButton(key) {
             const btn = document.getElementById('key-' + key);
             if (btn) {
                 btn.classList.add('key-active');
-                setTimeout(() => btn.classList.remove('key-active'), 100);
+                setTimeout(() => btn.classList.remove('key-active'), 150);
             }
         }
     </script>
