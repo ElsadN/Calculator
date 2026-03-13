@@ -3,170 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Futuristic Neon Calc</title>
+    <title>Elsad's Bright & Smart Calc</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Orbitron', sans-serif; /* Futuristik şrift */
+            font-family: 'Segoe UI', sans-serif;
         }
 
         body {
-            background: radial-gradient(circle, #1a1a2e 0%, #0f0f1b 100%);
+            /* Daha işıqlı və enerjili arxa plan */
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             overflow: hidden;
         }
 
         .calculator {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px); /* Şüşə effekti */
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 25px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid white;
+            padding: 30px;
             border-radius: 30px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.1);
-            width: 350px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 380px;
+            position: relative;
         }
 
         #display {
             width: 100%;
             height: 70px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid #00d2ff;
+            background: white;
+            border: 2px solid #3a7bd5;
             border-radius: 15px;
-            color: #00d2ff;
+            color: #333;
             text-align: right;
             padding: 15px;
             font-size: 32px;
-            margin-bottom: 25px;
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
-            text-shadow: 0 0 10px #00d2ff;
+            margin-bottom: 20px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+            outline: none;
         }
 
         .buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
+            gap: 12px;
         }
 
         button {
             height: 65px;
             border-radius: 15px;
             border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
+            background: white;
+            color: #333;
             font-size: 20px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.2s;
         }
 
         button:hover {
-            background: #00d2ff;
-            color: #000;
-            box-shadow: 0 0 20px #00d2ff;
-            transform: translateY(-3px);
+            background: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
 
         button:active {
-            transform: scale(0.9);
+            transform: translateY(0);
         }
 
         .operator {
-            color: #ff007c;
-            font-weight: bold;
-            background: rgba(255, 0, 124, 0.1);
-        }
-
-        .operator:hover {
-            background: #ff007c;
-            color: #fff;
-            box-shadow: 0 0 20px #ff007c;
+            background: #f8f9fa;
+            color: #3a7bd5;
         }
 
         .equal {
-            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            background: linear-gradient(45deg, #3a7bd5, #00d2ff);
+            color: white;
             grid-column: span 2;
-            font-weight: bold;
         }
 
         .clear {
-            background: rgba(255, 69, 0, 0.2);
-            color: #ff4500;
+            background: #ffeded;
+            color: #ff4757;
             grid-column: span 2;
         }
 
-        .clear:hover {
-            background: #ff4500;
-            color: white;
-            box-shadow: 0 0 20px #ff4500;
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            letter-spacing: 1px;
         }
 
-        /* Alt tərəfə dekorativ yazı */
-        .footer {
-            margin-top: 15px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 12px;
-            letter-spacing: 2px;
+        /* Klaviatura aktiv olanda düymə parıltısı üçün klass */
+        .key-active {
+            background: #3a7bd5 !important;
+            color: white !important;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="calculator">
-    <input type="text" id="display" disabled placeholder="0">
-    <div class="buttons">
-        <button class="clear" onclick="clearDisplay()">CLEAR</button>
-        <button class="operator" onclick="appendToDisplay('/')">÷</button>
-        <button class="operator" onclick="appendToDisplay('*')">×</button>
-        <button onclick="appendToDisplay('7')">7</button>
-        <button onclick="appendToDisplay('8')">8</button>
-        <button onclick="appendToDisplay('9')">9</button>
-        <button class="operator" onclick="appendToDisplay('-')">-</button>
-        <button onclick="appendToDisplay('4')">4</button>
-        <button onclick="appendToDisplay('5')">5</button>
-        <button onclick="appendToDisplay('6')">6</button>
-        <button class="operator" onclick="appendToDisplay('+')">+</button>
-        <button onclick="appendToDisplay('1')">1</button>
-        <button onclick="appendToDisplay('2')">2</button>
-        <button onclick="appendToDisplay('3')">3</button>
-        <button class="operator" onclick="calculate()">=</button>
-        <button onclick="appendToDisplay('0')">0</button>
-        <button onclick="appendToDisplay('.')">.</button>
-        <button class="equal" onclick="calculate()">TOTAL</button>
+    <div class="calculator">
+        <input type="text" id="display" disabled placeholder="0">
+        <div class="buttons">
+            <button class="clear" id="key-Escape" onclick="clearDisplay()">CLEAR (Esc)</button>
+            <button class="operator" id="key-/" onclick="appendToDisplay('/')">÷</button>
+            <button class="operator" id="key-*" onclick="appendToDisplay('*')">×</button>
+            
+            <button id="key-7" onclick="appendToDisplay('7')">7</button>
+            <button id="key-8" onclick="appendToDisplay('8')">8</button>
+            <button id="key-9" onclick="appendToDisplay('9')">9</button>
+            <button class="operator" id="key--" onclick="appendToDisplay('-')">-</button>
+            
+            <button id="key-4" onclick="appendToDisplay('4')">4</button>
+            <button id="key-5" onclick="appendToDisplay('5')">5</button>
+            <button id="key-6" onclick="appendToDisplay('6')">6</button>
+            <button class="operator" id="key-+" onclick="appendToDisplay('+')">+</button>
+            
+            <button id="key-1" onclick="appendToDisplay('1')">1</button>
+            <button id="key-2" onclick="appendToDisplay('2')">2</button>
+            <button id="key-3" onclick="appendToDisplay('3')">3</button>
+            <button class="operator" id="key-Enter" onclick="calculate()">=</button>
+            
+            <button id="key-0" onclick="appendToDisplay('0')">0</button>
+            <button id="key-." onclick="appendToDisplay('.')">.</button>
+            <button class="equal" id="key-Enter" onclick="calculate()">TOTAL (Enter)</button>
+        </div>
+        <div class="footer">SMART CALCULATOR BY ELSAD</div>
     </div>
-    <div class="footer">DESIGNED BY ELSAD</div>
-</div>
 
-<script>
-    const display = document.getElementById('display');
+    <script>
+        const display = document.getElementById('display');
 
-    function appendToDisplay(input) {
-        if (display.value === "Xəta") display.value = "";
-        display.value += input;
-    }
-
-    function clearDisplay() {
-        display.value = "";
-    }
-
-    function calculate() {
-        try {
-            // Eval funksiyasını təhlükəsiz şəkildə işlədirik
-            let result = eval(display.value);
-            display.value = Number.isInteger(result) ? result : result.toFixed(2);
-        } catch (error) {
-            display.value = "Xəta";
+        function appendToDisplay(input) {
+            if (display.value === "Error") display.value = "";
+            display.value += input;
         }
-    }
-</script>
 
+        function clearDisplay() {
+            display.value = "";
+        }
+
+        function calculate() {
+            try {
+                let result = eval(display.value);
+                display.value = Number.isInteger(result) ? result : result.toFixed(2);
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // KLAVİATURA DƏSTƏYİ
+        document.addEventListener('keydown', (event) => {
+            const key = event.key;
+            
+            // Rəqəmlər və operatorlar
+            if (/[0-9\/\*\-\.\+]/.test(key)) {
+                appendToDisplay(key);
+                animateButton(key);
+            } 
+            // Enter düyməsi
+            else if (key === 'Enter') {
+                calculate();
+                animateButton('Enter');
+            } 
+            // Escape və ya Backspace (təmizləmək üçün)
+            else if (key === 'Escape' || key === 'Delete') {
+                clearDisplay();
+                animateButton('Escape');
+            }
+            else if (key === 'Backspace') {
+                display.value = display.value.slice(0, -1);
+            }
+        });
+
+        // Düyməyə basanda vizual effekt
+        function animateButton(key) {
+            const btn = document.getElementById('key-' + key);
+            if (btn) {
+                btn.classList.add('key-active');
+                setTimeout(() => btn.classList.remove('key-active'), 100);
+            }
+        }
+    </script>
 </body>
 </html>
