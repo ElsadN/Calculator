@@ -3,75 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Kalkulyator</title>
+    <title>Futuristic Neon Calc</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', sans-serif; /* Futuristik şrift */
+        }
+
         body {
-            background-color: #1a1a1a;
+            background: radial-gradient(circle, #1a1a2e 0%, #0f0f1b 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
         }
+
         .calculator {
-            background-color: #333;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
-            width: 320px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px); /* Şüşə effekti */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.1);
+            width: 350px;
         }
+
         #display {
             width: 100%;
-            height: 60px;
-            font-size: 30px;
+            height: 70px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #00d2ff;
+            border-radius: 15px;
+            color: #00d2ff;
             text-align: right;
-            margin-bottom: 20px;
-            padding: 10px;
-            box-sizing: border-box;
-            border: none;
-            background: #222;
-            color: #0ff;
-            border-radius: 10px;
+            padding: 15px;
+            font-size: 32px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+            text-shadow: 0 0 10px #00d2ff;
         }
+
         .buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 15px;
         }
+
         button {
-            padding: 20px;
-            font-size: 18px;
+            height: 65px;
+            border-radius: 15px;
             border: none;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 20px;
             cursor: pointer;
-            background-color: #444;
-            color: white;
-            transition: 0.2s;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
         button:hover {
-            background-color: #555;
+            background: #00d2ff;
+            color: #000;
+            box-shadow: 0 0 20px #00d2ff;
+            transform: translateY(-3px);
         }
+
+        button:active {
+            transform: scale(0.9);
+        }
+
         .operator {
-            background-color: #f39c12;
+            color: #ff007c;
+            font-weight: bold;
+            background: rgba(255, 0, 124, 0.1);
         }
+
+        .operator:hover {
+            background: #ff007c;
+            color: #fff;
+            box-shadow: 0 0 20px #ff007c;
+        }
+
         .equal {
-            background-color: #27ae60;
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            grid-column: span 2;
+            font-weight: bold;
+        }
+
+        .clear {
+            background: rgba(255, 69, 0, 0.2);
+            color: #ff4500;
             grid-column: span 2;
         }
-        .clear {
-            background-color: #e74c3c;
-            grid-column: span 2;
+
+        .clear:hover {
+            background: #ff4500;
+            color: white;
+            box-shadow: 0 0 20px #ff4500;
+        }
+
+        /* Alt tərəfə dekorativ yazı */
+        .footer {
+            margin-top: 15px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 12px;
+            letter-spacing: 2px;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="calculator">
-    <input type="text" id="display" disabled>
+    <input type="text" id="display" disabled placeholder="0">
     <div class="buttons">
-        <button class="clear" onclick="clearDisplay()">C</button>
-        <button class="operator" onclick="appendToDisplay('/')">/</button>
+        <button class="clear" onclick="clearDisplay()">CLEAR</button>
+        <button class="operator" onclick="appendToDisplay('/')">÷</button>
         <button class="operator" onclick="appendToDisplay('*')">×</button>
         <button onclick="appendToDisplay('7')">7</button>
         <button onclick="appendToDisplay('8')">8</button>
@@ -84,17 +137,19 @@
         <button onclick="appendToDisplay('1')">1</button>
         <button onclick="appendToDisplay('2')">2</button>
         <button onclick="appendToDisplay('3')">3</button>
-        <button onclick="calculate()">=</button>
+        <button class="operator" onclick="calculate()">=</button>
         <button onclick="appendToDisplay('0')">0</button>
         <button onclick="appendToDisplay('.')">.</button>
-        <button class="equal" onclick="calculate()">Cəmlə</button>
+        <button class="equal" onclick="calculate()">TOTAL</button>
     </div>
+    <div class="footer">DESIGNED BY ELSAD</div>
 </div>
 
 <script>
     const display = document.getElementById('display');
 
     function appendToDisplay(input) {
+        if (display.value === "Xəta") display.value = "";
         display.value += input;
     }
 
@@ -104,7 +159,9 @@
 
     function calculate() {
         try {
-            display.value = eval(display.value);
+            // Eval funksiyasını təhlükəsiz şəkildə işlədirik
+            let result = eval(display.value);
+            display.value = Number.isInteger(result) ? result : result.toFixed(2);
         } catch (error) {
             display.value = "Xəta";
         }
